@@ -1,14 +1,58 @@
 /*------------------------------------*\
 #FONTS
 \*------------------------------------*/
-
+@font-face {
+    font-family: "WorkSans";
+    font-weight: 400;
+    src: url("../fonts/WorkSans-Regular.ttf") format("ttf")
+}
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
 
 :root {
     /* colors */
+    --global-color-alpha-light: #4F95FF;
+    --global-color-alpha: #3385FF;
+    --global-color-alpha-dark: #2E77E6;
+    --global-color-alpha-x-dark: #1B4186;
+    --global-color-alpha-transparent: #3385ffbf;
+    --global-color-alpha-x-transparent: #3385ff4d;
 
+    --global-color-neutral-xxxx-light: #F5F6FA;
+    --global-color-neutral-xxx-light: #E2E3E7;
+    --global-color-neutral-xx-light: #caccd4;
+    --global-color-neutral-x-light: #b5b6c0;
+    --global-color-neutral-light: #a0a1ad;
+    --global-color-neutral: #8b8c9a;
+    --global-color-neutral-dark: #757787;
+    --global-color-neutral-x-dark: #606274;
+    --global-color-neutral-xx-dark: #4b4c60;
+    --global-color-neutral-xxx-dark: #35374d;
+    --global-color-neutral-xxxx-dark: #20223a;
+
+    /* border stuff */
+    --global-borderRadius: 3px;
+    --global-borderWidth: 1px;
+
+    /* transitions */
+    --global-transitionTiming-alpha: .1s ease-out;
+
+    /* Baseline settings */
+    --global-baseline: 8px;         
+    --global-whitespace: calc(var(--global-baseline) * 3); /* = 24px */
+
+    --global-whitespace-xs: calc(var(--global-baseline) / 2); /* = 4px */
+    --global-whitespace-sm: calc(var(--global-baseline) * 1); /*  = 8px */
+    --global-whitespace-md: calc(var(--global-baseline) * 2); /*  = 16px */
+    --global-whitespace-lg: calc(var(--global-baseline) * 4); /*  = 32px */
+    --global-whitespace-xl: calc(var(--global-whitespace) * 2); /*  = 48px */
+    --global-whitespace-xxl: calc(var(--global-whitespace) * 3); /*  = 72px */
+
+
+    /* colors */
+    --color-front: #0F3557;
+    --color-back: #cce7ff; 
     /* opacity */
 
     /* transitions */
@@ -27,8 +71,10 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: "WorkSans", Helvetica, arial, sans-serif;
     box-sizing: border-box;
+    background-color: var(--color-back);
+    color: var(--color-front);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -242,6 +288,23 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+.c-app {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 25em;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.c-app__summary {
+    font-size: 28px;
+    line-height: 40px;
+}
+
+
 /*
     Component: Logo
     ---
@@ -249,7 +312,14 @@ input::placeholder {
 */
 
 .c-logo {
-
+    height: var(--global-whitespace);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: var(--global-whitespace-lg);
+    font-size: 16px;
+    margin-bottom: auto;
+    margin-top: 25px;
 }
 
 /*
@@ -259,11 +329,13 @@ input::placeholder {
 */
 
 .c-sun {
-
+    fill: var(--color-front);
+    
 }
 
 .c-logo .c-sun {
-
+    height: 100%;
+    margin-right: 8px;
 }
 
 /*
@@ -278,6 +350,39 @@ input::placeholder {
     Horizon with sun visualisation
 */
 
+.c-horizon__line {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid var(--color-front);
+}
+
+.c-horizon__time {
+    font-size: 12px;
+    color: var(--color-front);
+    font-weight: 600;
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    content: attr(data-time);
+}
+
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
@@ -286,6 +391,9 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+.u-muted {
+    opacity: 0.6;
+}
 
 /*------------------------------------*\
 #STATES
@@ -367,3 +475,8 @@ input::placeholder {
         page-break-after: avoid;
     }
 }
+
+.is-night {
+    --color-front: #cce7ff;
+    --color-back: #0F3557; 
+ }
